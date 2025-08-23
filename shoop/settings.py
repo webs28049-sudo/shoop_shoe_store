@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY =os.getenv("SECRET_KEY", "fallback-secret-key")
 
-# SECURITY WARNING: don't run with debug turned on in production!
+#SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
 ALLOWED_HOSTS = ['*']
@@ -49,6 +49,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'shoop.urls'
@@ -130,7 +131,7 @@ STATICFILES_DIRS=[
     os.path.join(BASE_DIR, 'shoop/static')
 ]
 STATIC_ROOT= os.path.join(BASE_DIR, 'staticfiles')
-#STATICFILES_STORAGE="whitenoise.storge.CompressedManifestStaticFilesStorage"
+STATICFILES_STORAGE="whitenoise.storge.CompressedManifestStaticFilesStorage"
 
 MEDIA_ROOT= os.path.join(BASE_DIR, 'media')
 MEDIA_URL='/media/'
