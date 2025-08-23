@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 import os
+import dj_database_url
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,12 +21,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ms@g@g&m-*v5m#+^4gm@72h0pey(jp+hiqdnfeb_d$s2$upi9+'
+SECRET_KEY = os.getenv.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -73,16 +74,21 @@ WSGI_APPLICATION = 'shoop.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+#DATABASES = {
+   # "default": {
+ #       "ENGINE": "django.db.backends.postgresql",
+      #  "NAME": "djangodatabase",
+       # "USER": "postgres",
+      #  "PASSWORD": "admin12345",
+       # "HOST": "localhost",
+       # "PORT": "5432",
+   # }
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "djangodatabase",
-        "USER": "postgres",
-        "PASSWORD": "admin12345",
-        "HOST": "localhost",
-        "PORT": "5432",
-    }
+    "default": dj_database_url.config(
+        default=os.getenv("DATABASE_URL")
+    )
 }
+
 
 
 # Password validation
