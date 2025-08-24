@@ -75,19 +75,25 @@ WSGI_APPLICATION = 'shoop.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-#DATABASES = {
-   # "default": {
- #       "ENGINE": "django.db.backends.postgresql",
-      #  "NAME": "djangodatabase",
-       # "USER": "postgres",
-      #  "PASSWORD": "admin12345",
-       # "HOST": "localhost",
-       # "PORT": "5432",
-   # }
-DATABASES = {
+
+if os.getenv("DATABASE_URL"):
+
+  DATABASES = {
     "default": dj_database_url.config(
-        default=os.getenv("DATABASE_URL")
-    )
+        default=os.getenv("DATABASE_URL"))
+        }
+else:
+    DATABASES={
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "djangodatabase",
+        "USER": "postgres",
+       "PASSWORD": "admin12345",
+       "HOST": "localhost",
+       "PORT": "5432",
+    }
+
+    
 }
 
 
